@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import PokemonProvider from '@/contexts/PokemonContext';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -28,10 +29,30 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
+      <PokemonProvider>
+        <Stack>
+          <Stack.Screen 
+            name="index" 
+            options={{
+              title: 'Pokédex',
+              headerShadowVisible: false,
+              headerStyle: { backgroundColor: '#DC0A2D' }, 
+              headerTitleStyle: { color: 'white', fontWeight: 'bold' }
+            }} 
+          />
+          <Stack.Screen 
+            name="pokemon/[name]"
+            options={{ 
+              headerShadowVisible: false,
+              headerTintColor: 'white',
+              headerStyle: { backgroundColor: '#DC0A2D' }, 
+              headerBackTitleVisible: false, 
+              title: ''
+            }}
+          />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </PokemonProvider>
     </ThemeProvider>
   );
 }
