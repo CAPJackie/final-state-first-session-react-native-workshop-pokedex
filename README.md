@@ -2,6 +2,8 @@
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
+https://github.com/jorcasca/Pokedex-React-Native/assets/31069035/4125195d-5103-467c-b8fc-dc9c08af5476
+
 ## Get started
 
 1. Install dependencies
