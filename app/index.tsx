@@ -1,32 +1,42 @@
-import { getPokemonImage } from '@/api/pokeapi';
-import { PokemonContext } from '@/contexts/PokemonContext';
-import { Link } from 'expo-router';
-import React, { useContext } from 'react';
-import { Text, View, StyleSheet, FlatList, Image, ActivityIndicator } from 'react-native';
+import { getPokemonImage } from "@/api/pokeapi";
+import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 
-export default function Home() {
-  const { pokemonList } = useContext(PokemonContext)!;
+interface Pokemon {
+  name: string;
+  url: string;
+}
 
-  const renderItem = ({ item }: { item: { name: string, url: string } }) => (
+export default function Index() {
+  const pokemonList: Pokemon[] = [
+    { name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/" },
+    { name: "ivysaur", url: "https://pokeapi.co/api/v2/pokemon/2/" },
+    { name: "venusaur", url: "https://pokeapi.co/api/v2/pokemon/3/" },
+    { name: "charmander", url: "https://pokeapi.co/api/v2/pokemon/4/" },
+    { name: "charmeleon", url: "https://pokeapi.co/api/v2/pokemon/5/" },
+    { name: "charizard", url: "https://pokeapi.co/api/v2/pokemon/6/" },
+    { name: "squirtle", url: "https://pokeapi.co/api/v2/pokemon/7/" },
+    { name: "wartortle", url: "https://pokeapi.co/api/v2/pokemon/8/" },
+    { name: "blastoise", url: "https://pokeapi.co/api/v2/pokemon/9/" },
+    { name: "caterpie", url: "https://pokeapi.co/api/v2/pokemon/10/" },
+    { name: "metapod", url: "https://pokeapi.co/api/v2/pokemon/11/" },
+    { name: "butterfree", url: "https://pokeapi.co/api/v2/pokemon/12/" },
+    { name: "weedle", url: "https://pokeapi.co/api/v2/pokemon/13/" },
+    { name: "kakuna", url: "https://pokeapi.co/api/v2/pokemon/14/" },
+    { name: "beedrill", url: "https://pokeapi.co/api/v2/pokemon/15/" },
+  ];
+
+  const renderItem = ({ item }: { item: Pokemon }) => (
     <View style={styles.item}>
-      <View style={styles.grayBackground}/>
-      <Link href={{ pathname: '/pokemon/[name]', params: { name: item.name } }}>
-        <View style={styles.itemColumn}>
-          <Image source={{ uri: `${getPokemonImage(item.url)}` }} style={styles.image} />
-          <Text style={styles.text}>{item.name}</Text>
-        </View>
-      </Link>
+      <View style={styles.grayBackground} />
+      <View style={styles.itemColumn}>
+        <Image
+          source={{ uri: `${getPokemonImage(item.url)}` }}
+          style={styles.image}
+        />
+        <Text style={styles.text}>{item.name}</Text>
+      </View>
     </View>
   );
-
-  if (pokemonList.length == 0) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="white" />
-        <Text style={styles.loadingText}>Loading...</Text>
-      </View>
-    );
-  }
 
   return (
     <View style={styles.container}>
@@ -45,39 +55,39 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#DC0A2D',
+    backgroundColor: "#DC0A2D",
   },
   subcontainer: {
     marginHorizontal: 5,
     marginVertical: 10,
     padding: 8,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 10,
   },
   grayBackground: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
-    height: '50%',
-    backgroundColor: '#EFEFEF',
+    height: "50%",
+    backgroundColor: "#EFEFEF",
     borderTopStartRadius: 10,
     borderTopEndRadius: 10,
   },
   item: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     margin: 5,
-    alignItems: 'center',
+    alignItems: "center",
     borderRadius: 10,
     elevation: 5,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
   itemColumn: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   image: {
     width: 100,
@@ -85,17 +95,17 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#DC0A2D',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#DC0A2D",
   },
   loadingText: {
     marginTop: 10,
     fontSize: 18,
-    color: 'white',
+    color: "white",
   },
 });
